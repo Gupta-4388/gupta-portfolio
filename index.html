@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lakshmi Narayana Gupta Boddu's AI/ML Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Poppins (for headings) & Lato (for body) -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            color: #334155; /* Dark slate text */
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+        .container {
+            max-width: 1200px; /* Even wider content area */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+        /* Custom styles for sections and cards */
+        .section-padding {
+            padding: 4rem 2rem; /* Consistent padding for sections */
+        }
+        .section-card {
+            border-radius: 1.5rem; /* Very rounded */
+            background-color: #ffffff; /* White card background */
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15), 0 10px 20px -5px rgba(0, 0, 0, 0.1); /* Soft, deep shadow */
+            border: 1px solid #e2e8f0; /* Subtle light border */
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .section-card:hover {
+            transform: translateY(-8px); /* Lift effect */
+            box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.2), 0 15px 30px -8px rgba(0, 0, 0, 0.15); /* More pronounced shadow */
+        }
+        .project-card {
+            @apply section-card;
+            background-color: #ffffff; /* White background for projects */
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2), 0 15px 30px -10px rgba(0, 0, 0, 0.15);
+            background-color: #f8faff; /* Very subtle light blue on hover */
+        }
+        .project-card img {
+            height: 280px; /* Taller images for impact */
+            object-fit: contain; /* Ensures full image is visible */
+            width: 100%;
+            border-top-left-radius: 1.5rem;
+            border-top-right-radius: 1.5rem;
+            transition: transform 0.5s ease; /* Image zoom on hover */
+            background-color: #f0f4f8; /* Background for letterboxing if image doesn't fill */
+        }
+        /* Specific override for Sciphit image if its aspect ratio is very different */
+        #project-sciphit img {
+            height: auto; /* Allow height to adjust to content */
+            max-height: 280px; /* Keep a max height if needed, but prioritize full image */
+            object-fit: contain;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+        .project-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-content h2 {
+            color: #4a00e0; /* Deeper purple for project titles */
+            font-size: 1.75rem;
+            margin-bottom: 1rem;
+        }
+        .project-content p {
+            color: #555;
+            margin-bottom: 1rem;
+            flex-grow: 1; /* Push button to bottom */
+        }
+
+        /* Image Shadow */
+        .image-shadow {
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Clearer image shadow */
+        }
+
+        /* Section Heading */
+        .section-heading {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 800;
+            color: #2c3e50;
+            position: relative;
+            padding-bottom: 1.2rem;
+            margin-bottom: 4rem;
+            display: inline-block;
+            font-size: 3.2rem; /* Larger heading */
+        }
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            transform: translateX(-50%);
+            width: 100px; /* Wider underline */
+            height: 5px; /* Thicker underline */
+            background: linear-gradient(to right, #667eea, #764ba2); /* Gradient underline */
+            border-radius: 3px;
+        }
+
+        /* Fade-in Animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(60px); /* More pronounced slide-up */
+            transition: opacity 1.5s ease-out, transform 1.5s ease-out; /* Slower, more graceful */
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Scroll to Top Button */
+        #scrollToTopBtn {
+            display: none;
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            z-index: 100;
+            background: linear-gradient(45deg, #667eea, #764ba2); /* Gradient button */
+            color: white;
+            cursor: pointer;
+            padding: 18px 20px;
+            border-radius: 50%;
+            font-size: 26px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+            transition: all 0.3s ease;
+        }
+        #scrollToTopBtn:hover {
+            transform: translateY(-8px) scale(1.05); /* Lift and slight scale */
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
+        }
+
+        /* AI Insight Box */
+        .ai-insight-box {
+            background-color: #e6f7ff; /* Light cyan for insight */
+            border-left: 6px solid #00aaff; /* Vibrant blue border */
+            padding: 1.5rem;
+            margin-top: 2rem;
+            border-radius: 1rem;
+            font-style: italic;
+            color: #0056b3; /* Darker blue text */
+            font-size: 0.95rem;
+            line-height: 1.6;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+        .ai-insight-box.loading {
+            text-align: center;
+            font-weight: bold;
+            color: #0056b3;
+        }
+        .ai-insight-box.error {
+            background-color: #ffe6e6; /* Light red */
+            border-left-color: #ff0000; /* Red */
+            color: #cc0000; /* Dark red */
+        }
+        .icon-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem; /* Space between icon and text */
+        }
+        .icon-link i {
+            font-size: 1.2em; /* Adjust icon size */
+            color: #60a5fa; /* Light blue for icons */
+        }
+        .icon-link:hover i {
+            color: #3b82f6; /* Darker blue on hover */
+        }
+        /* Custom image style for CodeChef logo */
+        .codechef-logo {
+            height: 1.2em; /* Match font size */
+            width: auto;
+            vertical-align: middle; /* Align with text */
+            margin-right: 0.25rem; /* Small space */
+            border-radius: 0.25rem; /* Slightly rounded corners */
+            filter: grayscale(10%); /* Subtle grayscale to blend with other icons */
+            transition: filter 0.3s ease;
+        }
+        .icon-link:hover .codechef-logo {
+            filter: grayscale(0%); /* Full color on hover */
+        }
+    </style>
+</head>
+<body class="p-6">
+    <div class="container mx-auto mt-8 mb-8">
+        <!-- Hero Section -->
+        <header class="hero-section text-center mb-20">
+            <h1 class="font-['Montserrat'] text-6xl md:text-7xl font-extrabold mb-4 leading-tight">Lakshmi Narayana Gupta Boddu</h1>
+            <p class="text-2xl md:text-3xl font-light opacity-95 mb-6">AI & Cloud Innovator | Aspiring Cloud Data Engineer / AI Developer</p>
+            <p class="text-lg opacity-85 max-w-3xl mx-auto">Connecting cutting-edge AI with robust cloud solutions to build the future.</p>
+        </header>
+
+        <!-- Main Content Wrapper -->
+        <main class="bg-white section-card p-8 md:p-12">
+
+            <!-- About Me Section -->
+            <section class="section-padding fade-in-section">
+                <h2 class="text-4xl font-bold text-center mb-10 section-heading mx-auto">About Me</h2>
+                <p class="text-lg text-gray-700 leading-relaxed mb-4">
+                    Curious and driven individual passionate about emerging technologies. Currently interning at AIconic, contributing to enterprise-grade Generative AI tools, LangChain agent research, and prompt engineering strategies. Recognized as a UiPath Student Developer Champion, demonstrating strong automation and RPA development skills.
+                </p>
+                <p class="text-lg text-gray-700 leading-relaxed">
+                    My goal is to become a proficient Cloud Data Engineer or AI Developer, with a long-term vision of leading impactful, innovative projects on a global scale. Committed to continuous learning and growth through hands-on experience in collaborative environments.
+                </p>
+            </section>
+
+            <!-- Skills Section -->
+            <section class="section-padding fade-in-section">
+                <h2 class="text-4xl font-bold text-center mb-10 section-heading mx-auto">Skills</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-gray-700">
+                    <div class="p-6 bg-blue-50 rounded-xl shadow-md border border-blue-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-3">Programming & Technical</h3>
+                        <ul class="list-disc list-inside ml-4 text-md">
+                            <li>Python</li>
+                            <li>Data Structures and Algorithms (DSA)</li>
+                            <li>Machine Learning</li>
+                            <li>Google Cloud Platform (GCP)</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-blue-50 rounded-xl shadow-md border border-blue-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-3">Databases & Version Control</h3>
+                        <ul class="list-disc list-inside ml-4 text-md">
+                            <li>SQL</li>
+                            <li>Database Management Systems (DBMS)</li>
+                            <li>Git, GitHub</li>
+                            <li>Visual Studio Code (VS Code)</li>
+                        </ul>
+                    </div>
+                    <div class="p-6 bg-blue-50 rounded-xl shadow-md border border-blue-200">
+                        <h3 class="text-xl font-semibold text-blue-700 mb-3">Soft Skills & Languages</h3>
+                        <ul class="list-disc list-inside ml-4 text-md">
+                            <li>Leadership, Communication, Teamwork, Collaboration, Time Management</li>
+                            <li>English, Telugu</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section class="section-padding pt-0">
+                <h2 class="text-4xl font-extrabold text-center mb-10 section-heading mx-auto fade-in-section">My Projects</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+
+                    <!-- Project: Sciphit - Gesture-Based Communication System -->
+                    <div class="project-card fade-in-section" id="project-sciphit">
+                        <img src="assets/sciphit.png" alt="Sciphit Gesture System Demo" class="image-shadow" onerror="this.onerror=null; this.src='https://placehold.co/600x280/e0e7ff/3b82f6?text=Image+Not+Found';">
+                        <div class="project-content">
+                            <h2 class="text-2xl font-semibold text-blue-700 mb-3">Sciphit - Gesture-Based Communication System</h2>
+                            <p class="project-description text-gray-700 mb-4" data-technologies="Python, TensorFlow, MediaPipe, OpenCV">Designed and developed an intelligent assistive system that interprets hand gestures into real-time textual communication. Aimed to support visually and speech-impaired individuals by providing a non-verbal mode of interaction. Implemented real-time gesture recognition using computer vision and deep learning techniques.</p>
+                            <p class="text-sm text-gray-600 mb-4"><strong>Technologies:</strong> Python, TensorFlow, MediaPipe, OpenCV</p>
+                            <p class="text-sm text-gray-600 mb-4"><strong>GitHub:</strong> <a href="https://github.com/Gupta-4388/Sciphit-Hackathon-Project" target="_blank" class="text-blue-500 hover:underline">Sciphit Project Repository</a></p>
+                            <button class="generate-insight-btn bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition-colors duration-300 shadow-lg mt-auto text-lg">✨ Get AI Insight</button>
+                            <div class="ai-insight-output"></div>
+                        </div>
+                    </div>
+
+                    <!-- Project: Speech-to-Task AI Agent (Open-Source) -->
+                    <div class="project-card fade-in-section" id="project-speech-to-task">
+                        <img src="assets/Speech_to_task_agent.png" alt="Speech-to-Task Agent Demo" class="image-shadow" onerror="this.onerror=null; this.src='https://placehold.co/600x280/e0e7ff/3b82f6?text=Image+Not+Found';">
+                        <div class="project-content">
+                            <h2 class="text-2xl font-semibold text-blue-700 mb-3">Speech-to-Task AI Agent (Open-Source)</h2>
+                            <p class="project-description text-gray-700 mb-4" data-technologies="Python, faster-whisper, LangChain, Ollama/Mistral, pydub, ffmpeg">Engineered an end-to-end open-source Python program that transcribes spoken commands from audio files using `faster-whisper` and processes them with a LangChain agent powered by a local LLM (Ollama/Mistral). Parses and categorizes multiple activities from speech into structured JSON output.</p>
+                            <p class="text-sm text-gray-600 mb-4"><strong>Key Technologies:</strong> Python, `faster-whisper`, LangChain, Ollama/LM Studio, `pydub`, `ffmpeg`</p>
+                            <p class="text-sm text-gray-500">*(Code: Private repository, access available upon request for review.)*</p>
+                            <button class="generate-insight-btn bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition-colors duration-300 shadow-lg mt-auto text-lg">✨ Get AI Insight</button>
+                            <div class="ai-insight-output"></div>
+                        </div>
+                    </div>
+
+                    <!-- Project: LangChain AI News Agent -->
+                    <div class="project-card fade-in-section" id="project-news-agent">
+                        <img src="assets/langchain_ai_news_agent.png" alt="AI News Agent Screenshot" class="image-shadow" onerror="this.onerror=null; this.src='https://placehold.co/600x280/e0e7ff/3b82f6?text=Image+Not+Found';">
+                        <div class="project-content">
+                            <h2 class="text-2xl font-semibold text-blue-700 mb-3">LangChain AI News Agent</h2>
+                            <p class="project-description text-gray-700 mb-4" data-technologies="Python, LangChain, OpenAI API, SerpAPI, python-dotenv">Designed and implemented a LangChain-based AI agent in Python capable of summarizing today's top AI news into concise bullet points by leveraging the SerpAPI tool. Ensured secure API key management through environment variables and delivered a production-ready, single-script solution for automated news summarization.</p>
+                            <p class="text-sm text-gray-600 mb-4"><strong>Key Technologies:</strong> Python, LangChain, OpenAI API, SerpAPI, `python-dotenv`</p>
+                            <p class="text-sm text-gray-500">*(Code: Private repository, access available upon request for review.)*</p>
+                            <button class="generate-insight-btn bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition-colors duration-300 shadow-lg mt-auto text-lg">✨ Get AI Insight</button>
+                            <div class="ai-insight-output"></div>
+                        </div>
+                    </div>
+
+                    <!-- Project: LLM Fundamentals - Latency Probe & Free-Tier Reality Check -->
+                    <div class="project-card fade-in-section" id="project-latency-probe">
+                        <img src="assets/latency_probe.png" alt="Latency Probe Screenshot" class="image-shadow" onerror="this.onerror=null; this.src='https://placehold.co/600x280/e0e7ff/3b82f6?text=Image+Not+Found';">
+                        <div class="project-content">
+                            <h2 class="text-2xl font-semibold text-blue-700 mb-3">LLM Fundamentals - Latency Probe & Free-Tier Reality Check</h2>
+                            <p class="project-description text-gray-700 mb-4" data-technologies="Python, Hugging Face API, Together AI API, requests">Built a Python script to accurately measure and analyze round-trip latency for Hugging Face and Together AI LLM endpoints. Documented performance variations and rate-limiting behaviors inherent to free-tier services, providing insights into real-world API usage.</p>
+                            <p class="text-sm text-gray-600 mb-4"><strong>Key Technologies:</strong> Python, Hugging Face API, Together AI API, `requests`</p>
+                            <p class="text-sm text-gray-500">*(Code: Private repository, access available upon request for review.)*</p>
+                            <button class="generate-insight-btn bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition-colors duration-300 shadow-lg mt-auto text-lg">✨ Get AI Insight</button>
+                            <div class="ai-insight-output"></div>
+                        </div>
+                    </div>
+
+                    <!-- Project: LLM Fundamentals - Token Counter CLI -->
+                    <div class="project-card fade-in-section" id="project-token-counter">
+                        <img src="assets/token_counter.png" alt="Token Counter Screenshot" class="image-shadow" onerror="this.onerror=null; this.src='https://placehold.co/600x280/e0e7ff/3b82f6?text=Image+Not+Found';">
+                        <div class="project-content">
+                            <h2 class="text-2xl font-semibold text-blue-700 mb-3">LLM Fundamentals - Token Counter CLI</h2>
+                            <p class="project-description text-gray-700 mb-4" data-technologies="Python, Hugging Face Transformers, huggingface_hub, rich, tabulate">Developed a Python command-line interface (CLI) tool to count and reason about tokens for open-source chat models. Provided insights into tokenization efficiency, demonstrating foundational understanding of LLM input processing.</p>
+                            <p class="text-sm text-gray-600 mb-4"><strong>Key Technologies:</strong> Python, Hugging Face Transformers, `huggingface_hub`, `rich`, `tabulate`</p>
+                            <p class="text-sm text-gray-500">*(Code: Private repository, access available upon request for review.)*</p>
+                            <button class="generate-insight-btn bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition-colors duration-300 shadow-lg mt-auto text-lg">✨ Get AI Insight</button>
+                            <div class="ai-insight-output"></div>
+                        </div>
+                    </div>
+
+                    <!-- Project: LLM Fundamentals - Temperature Playground -->
+                    <div class="project-card fade-in-section" id="project-temperature-playground">
+                        <img src="assets/temp_sweep.png" alt="Temperature Playground Screenshot" class="image-shadow" onerror="this.onerror=null; this.src='https://placehold.co/600x280/e0e7ff/3b82f6?text=Image+Not+Found';">
+                        <div class="project-content">
+                            <h2 class="text-2xl font-semibold text-blue-700 mb-3">LLM Fundamentals - Temperature Playground</h2>
+                            <p class="project-description text-gray-700 mb-4" data-technologies="Python, Jupyter Notebook, LLM APIs (e.g., OpenAI)">Conducted an experimental sweep of temperature parameters ([0.0, 0.4, 0.8]) for LLM text generation in a Jupyter Notebook, observing and selecting preferred creative outputs (e.g., haikus). Demonstrated practical understanding of LLM generation parameters and their impact on response diversity.</p>
+                            <p class="text-sm text-gray-600 mb-4"><strong>Key Technologies:</strong> Python, Jupyter Notebook, LLM APIs (e.g., OpenAI)</p>
+                            <p class="text-sm text-gray-500">*(Code: Private repository, access available upon request for review.)*</p>
+                            <button class="generate-insight-btn bg-purple-600 text-white px-6 py-3 rounded-full hover:bg-purple-700 transition-colors duration-300 shadow-lg mt-auto text-lg">✨ Get AI Insight</button>
+                            <div class="ai-insight-output"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- Experience Section -->
+            <section class="section-padding fade-in-section">
+                <h2 class="text-4xl font-bold text-center mb-10 section-heading mx-auto">Experience</h2>
+                <div class="space-y-8 text-gray-700">
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700">AI Intern</h3>
+                        <p class="text-md">Alconic (Remote) | April 2025 - Present</p>
+                        <ul class="list-disc list-inside ml-6 mt-2">
+                            <li>Working on enterprise-grade Generative AI tools.</li>
+                            <li>Contributing to LangChain agent research and development.</li>
+                            <li>Conducting prompt engineering strategies for LLM interaction.</li>
+                            <li>Building LLM-powered tools for knowledge retrieval and automation.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700">Student Intern - Generative AI with Google Cloud</h3>
+                        <p class="text-md">Google Cloud Virtual Internship | September 2024 - October 2024</p>
+                        <ul class="list-disc list-inside ml-6 mt-2">
+                            <li>Gained hands-on experience in Generative AI using Google Cloud tools and services.</li>
+                            <li>Explored and applied foundational concepts in building and deploying AI models.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700">Remote Intern - Introduction to Networking</h3>
+                        <p class="text-md">Networking for Cyber Professionals (Virtual Internship) | October 2024 - December 2025</p>
+                        <ul class="list-disc list-inside ml-6 mt-2">
+                            <li>Completed foundational training on networking concepts critical for cybersecurity.</li>
+                            <li>Studied topics such as IP addressing, routing, and network protocols.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section class="section-padding fade-in-section">
+                <h2 class="text-4xl font-bold text-center mb-10 section-heading mx-auto">Education</h2>
+                <div class="space-y-6 text-gray-700">
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700">Bachelor of Technology in Computer Science and Engineering with Artificial Intelligence</h3>
+                        <p class="text-md">Pragati Engineering College, Surampalem | 2022 - 2026</p>
+                        <p class="text-md">Current CGPA: 8.25</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700">Intermediate - MPC Stream</h3>
+                        <p class="text-md">Sri Shiridi Sai Junior College, Kadiam | 2020 - 2022</p>
+                        <p class="text-md">Percentage: 93.6%</p>
+                    </div>
+                    <div>
+                        <h3 class="text-xl font-semibold text-blue-700">Secondary School Certificate (SSC)</h3>
+                        <p class="text-md">Sri Shirdi Sai Vidya Niketan, Kadiam | 2019 - 2020</p>
+                        <p class="text-md">Percentage: 87.8%</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certifications Section -->
+            <section class="section-padding fade-in-section">
+                <h2 class="text-4xl font-bold text-center mb-10 section-heading mx-auto">Certifications</h2>
+                <ul class="list-disc list-inside ml-6 text-gray-700 space-y-2 text-md">
+                    <li>ServiceNow - Certified System Administrator (Jul 2025)</li>
+                    <li>ServiceNow - Certified Application Developer (Jul 2025)</li>
+                    <li>Microsoft Certified: AI Fundamentals (AI-900) (Jun 2025)</li>
+                    <li>NPTEL - Database Management System (Elite) (Apr 2025)</li>
+                    <li>Google Cloud - Professional Data Engineer (Dec 2024)</li>
+                    <li>NPTEL - Introduction to Machine Learning (Elite) (Sep 2024)</li>
+                </ul>
+            </section>
+
+            <!-- Achievements Section -->
+            <section class="section-padding fade-in-section">
+                <h2 class="text-4xl font-bold text-center mb-10 section-heading mx-auto">Achievements</h2>
+                <ul class="list-disc list-inside ml-6 text-gray-700 space-y-2 text-md">
+                    <li>UiPath Student Developer Champion (2025-2026) - Selected as Student Developer Champion from Pragati Engineering College. Organized and promoted UiPath initiatives.</li>
+                    <li>Gold Milestone Achievement - LetsUpgrade - Recognized for consistent learning contributions and leadership within the student community.</li>
+                </ul>
+            </section>
+
+            <!-- Contact Section -->
+            <section class="section-padding text-center fade-in-section">
+                <h2 class="text-4xl font-bold text-blue-700 mb-10 section-heading mx-auto">Connect With Me</h2>
+                <p class="mt-2 text-xl font-semibold flex flex-wrap justify-center items-center gap-x-6 gap-y-3">
+                    <a href="https://www.linkedin.com/in/lakshmi-narayana-gupta-boddu-147245259/" target="_blank" class="text-blue-600 hover:underline icon-link">
+                        <i class="fab fa-linkedin"></i> LinkedIn
+                    </a>
+                    <a href="https://github.com/Gupta-4388" target="_blank" class="text-blue-600 hover:underline icon-link">
+                        <i class="fab fa-github"></i> GitHub
+                    </a>
+                    <a href="mailto:lakshminarayanaguptaboddu@gmail.com" target="_blank" class="text-blue-600 hover:underline icon-link">
+                        <i class="fas fa-envelope"></i> Email
+                    </a>
+                    <a href="https://www.youtube.com/@lakshminarayanaguptaboddu4374" target="_blank" class="text-blue-600 hover:underline icon-link">
+                        <i class="fab fa-youtube"></i> YouTube
+                    </a>
+                </p>
+                <p class="mt-6 text-lg text-gray-600 flex flex-wrap justify-center items-center gap-x-6 gap-y-3">
+                    <a href="https://leetcode.com/u/lakshminarayanaguptaboddu/" target="_blank" class="text-blue-600 hover:underline icon-link">
+                        <i class="fas fa-code"></i> LeetCode
+                    </a>
+                    <a href="https://www.hackerrank.com/profile/22A31A4388" target="_blank" class="text-blue-600 hover:underline icon-link">
+                        <i class="fab fa-hackerrank"></i> HackerRank
+                    </a>
+                    <a href="https://www.codechef.com/users/gupta88" target="_blank" class="text-blue-600 hover:underline icon-link">
+                        <img src="assets/image_d9b33d.png" alt="CodeChef Logo" class="codechef-logo inline-block" onerror="this.onerror=null; this.src='https://placehold.co/20x20/e0e7ff/3b82f6?text=CC';"> CodeChef
+                    </a>
+                </p>
+                <p class="mt-8 text-md text-gray-500 icon-link justify-center">
+                    <i class="fas fa-map-marker-alt"></i> Rajahmundry-533126, East Godavari, Andhra Pradesh, India
+                </p>
+            </section>
+
+        </main> <!-- End main content wrapper -->
+    </div>
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTopBtn" title="Go to top">↑</button>
+
+    <script>
+        // Smooth scrolling for anchor links (if you add a navigation later)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Fade-in sections on scroll
+        const faders = document.querySelectorAll('.fade-in-section');
+
+        const appearOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('is-visible');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+
+        // Scroll to top button functionality
+        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+        window.onscroll = function() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                scrollToTopBtn.style.display = "block";
+            } else {
+                scrollToTopBtn.style.display = "none";
+            }
+        };
+
+        scrollToTopBtn.addEventListener("click", function() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        });
+
+        // Gemini API Integration
+        document.querySelectorAll('.generate-insight-btn').forEach(button => {
+            button.addEventListener('click', async function() {
+                const projectCard = this.closest('.project-card');
+                const projectDescriptionElement = projectCard.querySelector('.project-description');
+                const projectTitle = projectCard.querySelector('h2').textContent; // Get project title
+                const projectDescription = projectDescriptionElement.textContent;
+                const projectTechnologies = projectDescriptionElement.dataset.technologies;
+                
+                const outputDiv = projectCard.querySelector('.ai-insight-output'); 
+
+                if (!outputDiv) {
+                    console.error("Error: Could not find .ai-insight-output div for this project card.");
+                    return;
+                }
+
+                outputDiv.innerHTML = '<div class="ai-insight-box loading">Generating AI Insight...</div>';
+                outputDiv.classList.remove('error');
+
+                let chatHistory = [];
+                const prompt = `Given the project "${projectTitle}", its description: "${projectDescription}", and technologies: "${projectTechnologies}", provide a concise (2-3 sentences) insight into its core innovation or a key AI/ML learning point demonstrated.`;
+                
+                chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+
+                const payload = { contents: chatHistory };
+                const apiKey = "AIzaSyBK77fad3BuVmHTsHCbuY7S3gRK4UhJeRA"; // Your actual API key inserted here
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        outputDiv.innerHTML = `<div class="ai-insight-box">${text}</div>`;
+                    } else {
+                        outputDiv.innerHTML = `<div class="ai-insight-box error">Error: Could not generate insight. Response structure unexpected.</div>`;
+                        console.error("Gemini API response structure unexpected:", result);
+                    }
+                } catch (error) {
+                    outputDiv.innerHTML = `<div class="ai-insight-box error">Error: Failed to connect to AI service. Please check your network or try again later.</div>`;
+                    console.error("Error calling Gemini API:", error);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
