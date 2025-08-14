@@ -6,7 +6,6 @@ Welcome to my personal portfolio website, showcasing my projects and experience 
 
 You can view the live version of this portfolio here:
 **[https://gupta-4388.github.io/gupta-portfolio/](https://gupta-4388.github.io/gupta-portfolio/)**
-*(Please ensure this URL matches your actual GitHub Pages URL after deployment. If you named your repo `Gupta-4388.github.io`, the URL will be `https://Gupta-4388.github.io/`)*
 
 ## ✨ About This Portfolio
 
